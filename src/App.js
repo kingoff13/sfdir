@@ -1,25 +1,55 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const TEST_DATA = [
+    {
+      id: 0,
+      first: 'Mark',
+      last: 'Otto',
+      handle: '@mdo',
+    },
+    {
+      id: 1,
+      first: 'Jacob',
+      last: 'Thornton',
+      handle: '@fat',
+    },
+    {
+      id: 2,
+      first: 'Larry',
+      last: 'the Bird',
+      handle: '@twitter',
+    },
+  ];
 
 function App() {
+  let heads = Object.keys(TEST_DATA[0]);
+  heads.shift();
+  let order = 1;
+  console.log(heads);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <table className="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          {heads.map((head) => (
+            <th key={head} scope="col">{head}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {TEST_DATA.map((item) => (
+        <tr>
+          <th scope="row">{order++}</th>
+          {heads.map((field) => (
+            <td key={item.id}>{item[field]}</td>
+          ))}
+        </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
