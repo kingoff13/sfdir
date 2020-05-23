@@ -69,7 +69,7 @@ export class ApiClient
         },
     ];
 
-    query(entity) {
+    query(entity = 'light_armor') {
         return this[entity];
     }
 }

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { ApiClient } from '../../api/api';
 
 export class ContentTable extends Component {
     render() {
-        let client = new ApiClient();
-        let query_data = client.query(this.props.data);
+        let query_data = this.props.data;
 
-        let heads = Object.keys(query_data[0]);
+        let heads = Object.keys(query_data[0] ? query_data[0] : {});
         heads.shift();
         let order = 1;
 
