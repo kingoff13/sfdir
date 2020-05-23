@@ -8,26 +8,32 @@ import { ApiClient } from './api/api'
 
 class App extends Component {
   state = {
-    data: []
+    data: [],
+    filteredData: []
   }
   
   componentDidMount() {
     let client = new ApiClient();
+    let data = client.query()
     this.setState({
-      data: client.query(),
+      data,
+      filteredData: data,
       client
     });
   }
 
-  filterData = (query) => {
-    // let data = this.state.client.query(query)
-    let data = this.state.data.filter(item => item.name.includes(query));
+  filterData = (event) => {
+    let data = this.state.data.filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase()));
+    this.setState({
+      filteredData: data
+    })
   }
 
   changeData = (query) => {
     let data = this.state.client.query(query)
     this.setState({
-      data
+      data,
+      filteredData: data
     })
   }
 
@@ -36,7 +42,7 @@ class App extends Component {
       <div>
         <Menu changeData={this.changeData}/>
         <Search filterData={this.filterData}/>
-        <ContentTable data={this.state.data}/>
+        <ContentTable data={this.state.filteredData}/>
       </div>
     );
   }
